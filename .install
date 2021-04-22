@@ -1,0 +1,27 @@
+# This article is for installing docker only.
+# Image file from https://download.docker.com (官方源地址)  https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/docker-ce.repo (清华大学源地址)
+# Docker yum 镜像文件
+yum-config-manage --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+yum-config-manage --add-repo https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/docker-ce.repo
+# yum-config-manage 需要安装包 yum-utils device-mapper-persistent-data lvm2
+# 更新 yum 源
+yum update
+
+# 安装 Docker
+yum install docker-ce docker-ce-cli containerd.io
+# 如果安装报错提示需要 --skip-broken
+yum --skip-broken install docker-ce docker-ce-cli containerd.io
+
+列出当前库的 docker 版本
+yum list docker-ce --showduplicates | sort -r
+
+# 启动 docker
+systemctl start docker
+
+验证
+docker --version
+docker run hello-world
+
+# 卸载 docker
+rpm -qa | grep docker
+yum -y remove docker
